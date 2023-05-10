@@ -1,5 +1,0 @@
-Resources:
-  MyTestBucket:
-    Type: 'AWS::S3::Bucket'
-    Properties:
-      BucketName: 'my-test-bucket-ungear-test-1'

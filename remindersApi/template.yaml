@@ -1,0 +1,18 @@
+# Example template for Cloud FOrmation
+
+# Resources:
+  # MyTestBucket:
+  #   Type: 'AWS::S3::Bucket'
+  #   Properties:
+  #     BucketName: 'my-test-bucket-ungear-test-1'
+
+  # MyTestLambda:
+  #   Type: 'AWS::Lambda::Function'
+  #   Properties:
+  #     Runtime: nodejs12.x
+  #     Role: arn:aws:iam::417623985065:role/manuallyCreatedRoleForLambdas
+  #     Handler: index.handler
+  #     Code:
+  #       ZipFile: |
+  #         exports.handler = function(event, context) { return 'Hello from Lambda!';}
+    
