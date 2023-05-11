@@ -8,6 +8,14 @@ provider:
   region: us-east-1
   httpApi:
     cors: true
+    authorizers:
+      myCognitoAuthorizer:
+        identitySource: $request.header.Authorization
+        # issuerUrl from the token
+        issuerUrl: https://cognito-idp.us-east-1.amazonaws.com/us-east-1_3hCOOMoIh
+        # clientId from the user pool's client
+        audience:
+          - 1erkkvn4u0t9nfptlgg755q7p1
 # you can add statements to the Lambda function's IAM Role here
 #  iam:
 #    role:
@@ -41,6 +49,12 @@ provider:
 functions:
   hello:
     handler: handler.hello
+    events:
+    - httpApi:
+        path: /hello
+        method: get
+        authorizer:
+            name: myCognitoAuthorizer
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details
