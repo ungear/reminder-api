@@ -10,11 +10,6 @@ module.exports.getAll = async (event) => {
   })
     .promise();
 
-  // const reminders = [
-  //   { id: 1, triggerTime: new Date().getTime(), text: 'first reminder text' },
-  //   { id: 2, triggerTime: new Date().getTime(), text: 'second reminder text' },
-  // ]
-
   return {
     statusCode: 200,
     headers: {
@@ -49,5 +44,19 @@ module.exports.create = async (event) => {
     //   "content-type":"application/json",
     // },
     // body: JSON.stringify(reminderBodyParams)
+  };
+}
+
+module.exports.delete = async (event) => {
+  const reminderId = event.pathParameters.id;
+  await docClient.delete({
+    TableName: process.env.REMINDERS_DB_NAME,
+    Key: {
+      id: reminderId,
+    },
+  }).promise();
+
+  return {
+    statusCode: 200,
   };
 }

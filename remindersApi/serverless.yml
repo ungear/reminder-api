@@ -6,7 +6,7 @@ custom:
 
 provider:
   name: aws
-  runtime: nodejs12.x
+  runtime: nodejs16.x
   stage: dev
   region: us-east-1
   httpApi:
@@ -31,6 +31,7 @@ provider:
         - dynamodb:Scan
         - dynamodb:GetItem
         - dynamodb:PutItem
+        - dynamodb:DeleteItem
       Resource:
         - { "Fn::GetAtt": ["Reminders", "Arn"] }
 
@@ -57,6 +58,14 @@ functions:
     - httpApi:
         path: /reminder
         method: post
+        authorizer:
+          name: myCognitoAuthorizer
+  delete:
+    handler: handler.delete
+    events:
+    - httpApi:
+        path: /reminder/{id}
+        method: delete
         authorizer:
           name: myCognitoAuthorizer
 #    The following are a few example events you can configure
